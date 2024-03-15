@@ -32,3 +32,11 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 }
 
+void ABasePlayer::StartTurn() {
+
+}
+
+void ABasePlayer::EndTurn() {
+
+}
+
