@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BasePlayer.h"
 #include "GameFramework/GameModeBase.h"
 #include "MinimaxMode.generated.h"
 
@@ -14,4 +15,14 @@ class MINIMAX_API AMinimaxMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+private:
+	int currentPlayer = 0;
+	ABasePlayer* players[2];
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	void PlayerTurnEnd();
 };

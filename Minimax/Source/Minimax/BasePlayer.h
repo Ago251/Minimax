@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "BasePlayer.generated.h"
 
+class AMinimaxMode;
+
 UCLASS()
 class MINIMAX_API ABasePlayer : public APawn
 {
@@ -14,6 +16,9 @@ class MINIMAX_API ABasePlayer : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ABasePlayer();
+
+private:
+	AMinimaxMode* MinimaxMode;
 
 protected:
 	// Called when the game starts or when spawned

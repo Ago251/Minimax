@@ -2,6 +2,8 @@
 
 
 #include "BasePlayer.h"
+#include "MinimaxMode.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABasePlayer::ABasePlayer()
@@ -15,7 +17,7 @@ ABasePlayer::ABasePlayer()
 void ABasePlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	MinimaxMode = Cast<AMinimaxMode>(UGameplayStatics::GetGameMode(this));
 }
 
 // Called every frame
@@ -37,6 +39,6 @@ void ABasePlayer::StartTurn() {
 }
 
 void ABasePlayer::EndTurn() {
-
+	MinimaxMode->PlayerTurnEnd();
 }
 
