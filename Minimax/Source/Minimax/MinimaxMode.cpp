@@ -7,7 +7,7 @@ void AMinimaxMode::BeginPlay()
 {
 	Super::BeginPlay();
 	//Initialization
-	players[currentPlayer]->StartTurn();
+	//players[currentPlayer]->StartTurn();
 }
 
 void AMinimaxMode::PlayerTurnEnd() 

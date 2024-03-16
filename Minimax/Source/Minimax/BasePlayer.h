@@ -17,7 +17,8 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePlayer();
 
-private:
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyVariables")
 	AMinimaxMode* MinimaxMode;
 
 protected:
@@ -31,6 +32,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = "MyCategory")
 	virtual void StartTurn();
 
 	virtual void EndTurn();
