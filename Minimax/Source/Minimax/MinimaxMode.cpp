@@ -31,12 +31,19 @@ void AMinimaxMode::BeginPlay()
 		}
 	}
 
+	//if (players[currentPlayer] != nullptr) {
+	//	players[currentPlayer]->StartTurn();
+	//}
+}
+
+void AMinimaxMode::StartGame(TArray<UButton*> Grid) {
 	if (players[currentPlayer] != nullptr) {
-		players[currentPlayer]->StartTurn();
+		players[currentPlayer]->StartTurn(Grid);
 	}
 }
 
-void AMinimaxMode::PlayerTurnEnd()
+
+void AMinimaxMode::PlayerTurnEnd(TArray<UButton*> Grid)
 {
 	//Check end game
 	//currentPlayer
@@ -44,7 +51,7 @@ void AMinimaxMode::PlayerTurnEnd()
 	if (currentPlayer >= sizeof(players) / sizeof(players[0]))
 		currentPlayer = 0;
 	if (players[currentPlayer] != nullptr) {
-		players[currentPlayer]->StartTurn();
+		players[currentPlayer]->StartTurn(Grid);
 	}
 }
 

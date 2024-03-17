@@ -20,15 +20,19 @@ class MINIMAX_API AMinimaxAIController : public AAIController
 	GENERATED_BODY()
 
 private:
-	int32 MiniMax(TArray<FString> Grid, int32 depth, ABasePlayer* player, bool isMaximizer);
+	void StartTurn(TArray<UButton*> Grid);
 
-	bool IsWinner(TArray<FString> Grid, FString player);
+	int32 MiniMax(TArray<FString>& Grid, int32 depth, bool isMaximizer);
+
+	bool IsWinner(TArray<FString>& Grid, FString player);
 
 	UTextBlock* GetText(UButton* Button);
 
-	int32 Evaluate(TArray<FString> Grid, FString player, bool isMaximizer);
+	int32 Evaluate(TArray<FString>& Grid);
 	
-	void BestMove(TArray<UButton*>& Grid, int32 depth, ABasePlayer* player, bool isMaximizer);
+	void BestMove(TArray<UButton*>& Grid);
 
 	TArray<FString> CreateStringArray(TArray<UButton*>& Grid);
+
+	virtual void OnPossess(APawn* InPawn) override;
 };

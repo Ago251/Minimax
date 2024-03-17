@@ -7,6 +7,7 @@
 #include "BasePlayer.generated.h"
 
 class AMinimaxMode;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartTurnEvent, TArray<UButton*>, Grid);
 
 UCLASS()
 class MINIMAX_API ABasePlayer : public APawn
@@ -25,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCategory")
 	FString Icon;
 
+	UPROPERTY(BlueprintAssignable, Category = "My Events")
+	FStartTurnEvent OnStartTurn;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,8 +41,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable, Category = "MyCategory")
-	virtual void StartTurn();
+	virtual void StartTurn(TArray<UButton*> Grid);
 
 	UFUNCTION(BlueprintCallable, Category = "MyCategory")
-	virtual void EndTurn();
+	virtual void EndTurn(TArray<UButton*> Grid);
 };

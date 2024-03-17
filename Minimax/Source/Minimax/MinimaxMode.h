@@ -27,5 +27,8 @@ private:
 	ABasePlayer* GetPlayer(int32 index, FString icon);
 
 public:
-	void PlayerTurnEnd();
+	UFUNCTION(BlueprintCallable, Category = "MyCategory")
+	void StartGame(TArray<UButton*> Grid);
+
+	void PlayerTurnEnd(TArray<UButton*> Grid);
 };

@@ -3,6 +3,7 @@
 
 #include "BasePlayer.h"
 #include "MinimaxMode.h"
+#include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -34,13 +35,14 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 }
 
-void ABasePlayer::StartTurn() {
+void ABasePlayer::StartTurn(TArray<UButton*> Grid) {
 	UE_LOG(LogTemp, Warning, TEXT("Start turn"));
 	isYourTurn = true;
+	OnStartTurn.Broadcast(Grid);
 }
 
-void ABasePlayer::EndTurn() {
+void ABasePlayer::EndTurn(TArray<UButton*> Grid) {
 	isYourTurn = false;
-	MinimaxMode->PlayerTurnEnd();
+	MinimaxMode->PlayerTurnEnd(Grid);
 }
 
