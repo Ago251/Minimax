@@ -6,23 +6,29 @@
 #include "AIController.h"
 #include "Components/Button.h"
 #include "Containers/Array.h"
-#include "Components/TextBlock.h"
 #include "BasePlayer.h"
 #include "MinimaxAIController.generated.h"
 
 /**
  * 
  */
+class UTextBlock;
+
 UCLASS()
 class MINIMAX_API AMinimaxAIController : public AAIController
 {
 	GENERATED_BODY()
 
-//private:
-//	int32 MiniMax(TArray<UButton*>& Grid, int32 depth, ABasePlayer* player);
-//
-//	bool IsWinner(TArray<UButton*>& Grid, ABasePlayer* player);
-//
-//	UTextBlock* GetText(UButton* Button);
+private:
+	int32 MiniMax(TArray<FString> Grid, int32 depth, ABasePlayer* player, bool isMaximizer);
+
+	bool IsWinner(TArray<FString> Grid, FString player);
+
+	UTextBlock* GetText(UButton* Button);
+
+	int32 Evaluate(TArray<FString> Grid, FString player, bool isMaximizer);
 	
+	void BestMove(TArray<UButton*>& Grid, int32 depth, ABasePlayer* player, bool isMaximizer);
+
+	TArray<FString> CreateStringArray(TArray<UButton*>& Grid);
 };
