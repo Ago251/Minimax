@@ -18,8 +18,12 @@ public:
 	ABasePlayer();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyVariables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCategory")
+	bool isYourTurn;
 	AMinimaxMode* MinimaxMode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCategory")
+	FString Icon;
 
 protected:
 	// Called when the game starts or when spawned
@@ -35,5 +39,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MyCategory")
 	virtual void StartTurn();
 
+	UFUNCTION(BlueprintCallable, Category = "MyCategory")
 	virtual void EndTurn();
 };

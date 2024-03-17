@@ -35,10 +35,12 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 }
 
 void ABasePlayer::StartTurn() {
-
+	UE_LOG(LogTemp, Warning, TEXT("Start turn"));
+	isYourTurn = true;
 }
 
 void ABasePlayer::EndTurn() {
+	isYourTurn = false;
 	MinimaxMode->PlayerTurnEnd();
 }
 

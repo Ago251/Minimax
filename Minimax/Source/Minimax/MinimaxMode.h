@@ -23,6 +23,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	ABasePlayer* GetPlayer(int32 index, FString icon);
+
 public:
 	void PlayerTurnEnd();
 };
