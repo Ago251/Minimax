@@ -17,7 +17,7 @@ void AMinimaxMode::BeginPlay()
 			FString PawnName = Pawn->GetName();
 			UE_LOG(LogTemp, Warning, TEXT("Nome del primo giocatore: %s"), *PawnName);
 			players[0] = Pawn;
-			players[0]->Icon = "X";
+			players[0]->Icon = "O";
 		}
 	}
 
@@ -27,7 +27,7 @@ void AMinimaxMode::BeginPlay()
 			FString PawnName = Pawn->GetName();
 			UE_LOG(LogTemp, Warning, TEXT("Nome del primo giocatore: %s"), *PawnName);
 			players[1] = Pawn;
-			players[1]->Icon = "O";
+			players[1]->Icon = "X";
 		}
 	}
 
@@ -37,7 +37,10 @@ void AMinimaxMode::BeginPlay()
 }
 
 void AMinimaxMode::StartGame(TArray<UButton*> Grid) {
+	UE_LOG(LogTemp, Warning, TEXT("StartGame"));
+	currentPlayer = 1;
 	if (players[currentPlayer] != nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Game mode: start turn"));
 		players[currentPlayer]->StartTurn(Grid);
 	}
 }

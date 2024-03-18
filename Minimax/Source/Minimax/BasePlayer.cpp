@@ -37,8 +37,9 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void ABasePlayer::StartTurn(TArray<UButton*> Grid) {
 	UE_LOG(LogTemp, Warning, TEXT("Start turn"));
+	CurrentGrid = &Grid;
 	isYourTurn = true;
-	OnStartTurn.Broadcast(Grid);
+	//OnStartTurn.Broadcast(Grid);
 }
 
 void ABasePlayer::EndTurn(TArray<UButton*> Grid) {

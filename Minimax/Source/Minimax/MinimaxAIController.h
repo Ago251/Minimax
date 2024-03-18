@@ -6,18 +6,21 @@
 #include "AIController.h"
 #include "Components/Button.h"
 #include "Containers/Array.h"
-#include "BasePlayer.h"
 #include "MinimaxAIController.generated.h"
 
 /**
  * 
  */
 class UTextBlock;
+class ABasePlayer;
 
 UCLASS()
 class MINIMAX_API AMinimaxAIController : public AAIController
 {
 	GENERATED_BODY()
+
+private:
+	ABasePlayer* currentPlayer;
 
 private:
 	void StartTurn(TArray<UButton*> Grid);
@@ -35,4 +38,8 @@ private:
 	TArray<FString> CreateStringArray(TArray<UButton*>& Grid);
 
 	virtual void OnPossess(APawn* InPawn) override;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 };

@@ -7,7 +7,7 @@
 #include "BasePlayer.generated.h"
 
 class AMinimaxMode;
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartTurnEvent, TArray<UButton*>, Grid);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartTurnEvent, TArray<UButton*>, Grid);
 
 UCLASS()
 class MINIMAX_API ABasePlayer : public APawn
@@ -26,8 +26,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCategory")
 	FString Icon;
 
-	UPROPERTY(BlueprintAssignable, Category = "My Events")
-	FStartTurnEvent OnStartTurn;
+
+	TArray<UButton*>* CurrentGrid;
+	/*UPROPERTY(BlueprintAssignable, Category = "My Events")
+	FStartTurnEvent OnStartTurn;*/
 
 protected:
 	// Called when the game starts or when spawned

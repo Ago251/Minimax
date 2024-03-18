@@ -1,16 +1,27 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MinimaxAIController.h"
+#include "BasePlayer.h"
 #include "Components/TextBlock.h"
 
 void AMinimaxAIController::OnPossess(APawn* InPawn) {
 	Super::OnPossess(InPawn);
 
+	UE_LOG(LogTemp, Warning, TEXT("Possesed"));
 	ABasePlayer* player = Cast<ABasePlayer>(InPawn);
 	if (player) {
-		player->OnStartTurn.AddDynamic(this, &AMinimaxAIController::StartTurn);
+		currentPlayer = player;
+		UE_LOG(LogTemp, Warning, TEXT("Possesed player"));
 	}
 }
+
+void AMinimaxAIController::Tick(float deltaTime) {
+	if (currentPlayer != nullptr && currentPlayer->isYourTurn) {
+		BestMove(*currentPlayer->CurrentGrid);
+		currentPlayer->EndTurn(*currentPlayer->CurrentGrid);
+	}
+}
+
 
 void AMinimaxAIController::StartTurn(TArray<UButton*> Grid) {
 	BestMove(Grid);
@@ -21,7 +32,7 @@ void AMinimaxAIController::BestMove(TArray<UButton*>& Grid) {
 	int bestMoveIndex = 0;
 	TArray<FString> stringGrid = CreateStringArray(Grid);
 
-	for (int i = 0; i < stringGrid.Num(); ++i) {
+	for (int i = 0; i < 9; ++i) {
 			if (stringGrid[i].IsEmpty()){
 				stringGrid[i] = "O";
 				int score = MiniMax(stringGrid, 0, false);
@@ -33,16 +44,19 @@ void AMinimaxAIController::BestMove(TArray<UButton*>& Grid) {
 			}
 	}
 
-	GetText(Grid[bestMoveIndex])->SetText(FText::FromString("O"));
+	if(bestMoveIndex != 0)
+		GetText(Grid[bestMoveIndex])->SetText(FText::FromString("O"));
 }
 
 TArray<FString> AMinimaxAIController::CreateStringArray(TArray<UButton*>& Grid) {
 	TArray<FString> stringGrid;
 	stringGrid.SetNum(9);
 
-	for (int i = 0; i < Grid.Num(); ++i) {
+	for (int i = 1; i < 9; ++i) {
 		stringGrid[i] = GetText(Grid[i])->GetText().ToString();
 	}
+
+	stringGrid[0] = "X";
 
 	return stringGrid;
 }
@@ -53,7 +67,7 @@ int32 AMinimaxAIController::MiniMax(TArray<FString>& Grid, int32 depth, bool isM
 	if (score != 0 || depth == 9)
 		return score;
 
-	for (int i = 0; i < Grid.Num(); ++i)
+	for (int i = 1; i < 9; ++i)
 	{
 		int bestScore = isMaximizer ? std::numeric_limits<int>::min() : std::numeric_limits<int>::max();
 		if (Grid[i].IsEmpty()) {
