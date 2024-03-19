@@ -27,7 +27,7 @@ void AMinimaxAIController::BestMove(TArray<FString>  Grid) {
 	for (int i = 0; i < 9; ++i) {
 			if (Grid[i].IsEmpty()){
 				Grid[i] = "O";
-				int score = MiniMax(Grid, 0, false);
+				int score = MiniMax(Grid, 0, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false);
 				Grid[i] = "";
 				if (score > bestScore) {
 					bestScore = score;
@@ -39,7 +39,7 @@ void AMinimaxAIController::BestMove(TArray<FString>  Grid) {
 	currentPlayer->EndTurn(bestMoveIndex);
 }
 
-int32 AMinimaxAIController::MiniMax(TArray<FString> Grid, int32 depth, bool isMaximizer) {
+int32 AMinimaxAIController::MiniMax(TArray<FString> Grid, int32 depth, int32 a, int32 b, bool isMaximizer) {
 	int32 score = Evaluate(Grid);
 
 	if (depth != 0) {
@@ -60,7 +60,17 @@ int32 AMinimaxAIController::MiniMax(TArray<FString> Grid, int32 depth, bool isMa
 	{
 		if (Grid[i].IsEmpty()) {
 			Grid[i] = isMaximizer ? "O" : "X";
-			bestScore = isMaximizer ? std::max(bestScore, MiniMax(Grid, depth, !isMaximizer)) : std::min(bestScore, MiniMax(Grid, depth, !isMaximizer));
+			bestScore = isMaximizer ? std::max(bestScore, MiniMax(Grid, depth, a, b, !isMaximizer)) : std::min(bestScore, MiniMax(Grid, depth, a, b, !isMaximizer));
+			if (isMaximizer) {
+				if (bestScore >= b)
+					break;
+				a = std::max(a, bestScore);
+			}
+			else {
+				if (bestScore <= a)
+					break;
+				b = std::min(b, bestScore);
+			}
 			Grid[i] = "";
 		}
 	}

@@ -23,7 +23,7 @@ private:
 	ABasePlayer* currentPlayer;
 
 private:
-	int32 MiniMax(TArray<FString> Grid, int32 depth, bool isMaximizer);
+	int32 MiniMax(TArray<FString> Grid, int32 depth, int32 a, int32 b, bool isMaximizer);
 
 	bool IsWinner(TArray<FString> Grid, FString player);
 
