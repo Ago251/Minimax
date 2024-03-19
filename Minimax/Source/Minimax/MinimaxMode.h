@@ -32,4 +32,10 @@ public:
 	void StartGame(TArray<UButton*> Grid);
 
 	void PlayerTurnEnd(int32 index);
+
+	bool IsWinner(FString player);
+
+	UTextBlock* GetText(UButton* Button);
+
+	FString GetStringText(UButton* Button);
 };

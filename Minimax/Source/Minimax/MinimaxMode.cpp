@@ -55,11 +55,13 @@ void AMinimaxMode::PlayerTurnEnd(int32 index)
 	//currentPlayer
 	UTextBlock* TextBlock = Cast<UTextBlock>(CurrentGrid[index]->GetChildAt(0));
 	TextBlock->SetText(FText::FromString(players[currentPlayer]->Icon));
-	currentPlayer++;
-	if (currentPlayer >= sizeof(players) / sizeof(players[0]))
-		currentPlayer = 0;
-	if (players[currentPlayer] != nullptr) {
-		players[currentPlayer]->StartTurn(CurrentGrid);
+	if (!IsWinner(players[currentPlayer]->Icon)) {
+		currentPlayer++;
+		if (currentPlayer >= sizeof(players) / sizeof(players[0]))
+			currentPlayer = 0;
+		if (players[currentPlayer] != nullptr) {
+			players[currentPlayer]->StartTurn(CurrentGrid);
+		}
 	}
 }
 
@@ -78,4 +80,75 @@ ABasePlayer* AMinimaxMode::GetPlayer(int32 index, FString icon) {
 	}
 
 	return nullptr;
+}
+
+
+bool AMinimaxMode::IsWinner(FString player) {
+	FLinearColor RedColor = FLinearColor(1.0f, 0.0f, 0.0f);
+
+	//Horizontal
+	for (int i = 0; i < 7; i += 3)
+	{
+		if (GetStringText(CurrentGrid[i]) == player && GetStringText(CurrentGrid[i + 1]) == player && GetStringText(CurrentGrid[i + 2]) == player) {
+				GetText(CurrentGrid[i])->SetColorAndOpacity(RedColor);
+				GetText(CurrentGrid[i + 1])->SetColorAndOpacity(RedColor);
+				GetText(CurrentGrid[i + 2])->SetColorAndOpacity(RedColor);
+				return true;
+		}
+	}
+
+
+	//Vertical
+	for (int i = 0; i < 3; ++i)
+	{
+		if (GetStringText(CurrentGrid[i]) == player && GetStringText(CurrentGrid[i + 3]) == player && GetStringText(CurrentGrid[i + 6]) == player) {
+			GetText(CurrentGrid[i])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[i + 3])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[i + 6])->SetColorAndOpacity(RedColor);
+			return true;
+		}
+	}
+
+	//Diagnonals
+	if (GetStringText(CurrentGrid[0]) == player && GetStringText(CurrentGrid[4]) == player && GetStringText(CurrentGrid[8]) == player) {
+			GetText(CurrentGrid[0])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[4])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[8])->SetColorAndOpacity(RedColor);
+			return true;
+	}
+
+	if (GetStringText(CurrentGrid[2]) == player && GetStringText(CurrentGrid[4]) == player && GetStringText(CurrentGrid[6]) == player) {
+			GetText(CurrentGrid[2])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[4])->SetColorAndOpacity(RedColor);
+			GetText(CurrentGrid[6])->SetColorAndOpacity(RedColor);
+			return true;
+	}
+
+	return false;
+}
+
+UTextBlock* AMinimaxMode::GetText(UButton* Button)
+{
+	if (Button)
+	{
+		// Ottieni il componente figlio TextBlock direttamente
+		UTextBlock* TextBlock = Cast<UTextBlock>(Button->GetChildAt(0));
+		return TextBlock;
+	}
+
+	// Se il Button ? nullo o non ha un TextBlock come figlio, restituisci nullptr
+	return nullptr;
+}
+
+FString AMinimaxMode::GetStringText(UButton* Button)
+{
+	if (Button)
+	{
+		// Ottieni il componente figlio TextBlock direttamente
+		UTextBlock* TextBlock = Cast<UTextBlock>(Button->GetChildAt(0));
+		return TextBlock->GetText().ToString();
+	}
+
+	// Se il Button ? nullo o non ha un TextBlock come figlio, restituisci nullptr
+	return "";
 }
