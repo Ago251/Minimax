@@ -70,9 +70,9 @@ int32 AMinimaxAIController::MiniMax(TArray<FString> Grid, int32 depth, bool isMa
 
 int32 AMinimaxAIController::Evaluate(TArray<FString> Grid) {
 	if (IsWinner(Grid, "O"))
-		return 10; // Vittoria per il giocatore 1
+		return 100; // Vittoria per il giocatore 1
 	else if (IsWinner(Grid, "X"))
-		return -10; // Vittoria per il giocatore 2
+		return -100; // Vittoria per il giocatore 2
 	else
 		return 0;
 }
