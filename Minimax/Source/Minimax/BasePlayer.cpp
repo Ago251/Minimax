@@ -4,6 +4,7 @@
 #include "BasePlayer.h"
 #include "MinimaxMode.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -37,13 +38,38 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void ABasePlayer::StartTurn(TArray<UButton*> Grid) {
 	UE_LOG(LogTemp, Warning, TEXT("Start turn"));
-	CurrentGrid = &Grid;
+	CurrentGrid = CreateStringArray(Grid);
 	isYourTurn = true;
 	//OnStartTurn.Broadcast(Grid);
 }
 
-void ABasePlayer::EndTurn(TArray<UButton*> Grid) {
+void ABasePlayer::EndTurn(int32 index) {
 	isYourTurn = false;
-	MinimaxMode->PlayerTurnEnd(Grid);
+	MinimaxMode->PlayerTurnEnd(index);
+}
+
+TArray<FString> ABasePlayer::CreateStringArray(TArray<UButton*>& Grid) {
+	TArray<FString> stringGrid;
+	stringGrid.SetNum(9);
+
+	for (int i = 0; i < 9; ++i) {
+		stringGrid[i] = GetText(Grid[i])->GetText().ToString();
+	}
+
+	return stringGrid;
+}
+
+
+UTextBlock* ABasePlayer::GetText(UButton* Button)
+{
+	if (Button)
+	{
+		// Ottieni il componente figlio TextBlock direttamente
+		UTextBlock* TextBlock = Cast<UTextBlock>(Button->GetChildAt(0));
+		return TextBlock;
+	}
+
+	// Se il Button ? nullo o non ha un TextBlock come figlio, restituisci nullptr
+	return nullptr;
 }
 

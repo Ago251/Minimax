@@ -2,6 +2,8 @@
 
 
 #include "MinimaxMode.h"
+#include "Components/TextBlock.h"
+#include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 
 void AMinimaxMode::BeginPlay()
@@ -37,24 +39,27 @@ void AMinimaxMode::BeginPlay()
 }
 
 void AMinimaxMode::StartGame(TArray<UButton*> Grid) {
+	CurrentGrid = Grid;
 	UE_LOG(LogTemp, Warning, TEXT("StartGame"));
 	currentPlayer = 1;
 	if (players[currentPlayer] != nullptr) {
 		UE_LOG(LogTemp, Warning, TEXT("Game mode: start turn"));
-		players[currentPlayer]->StartTurn(Grid);
+		players[currentPlayer]->StartTurn(CurrentGrid);
 	}
 }
 
 
-void AMinimaxMode::PlayerTurnEnd(TArray<UButton*> Grid)
+void AMinimaxMode::PlayerTurnEnd(int32 index)
 {
 	//Check end game
 	//currentPlayer
+	UTextBlock* TextBlock = Cast<UTextBlock>(CurrentGrid[index]->GetChildAt(0));
+	TextBlock->SetText(FText::FromString(players[currentPlayer]->Icon));
 	currentPlayer++;
 	if (currentPlayer >= sizeof(players) / sizeof(players[0]))
 		currentPlayer = 0;
 	if (players[currentPlayer] != nullptr) {
-		players[currentPlayer]->StartTurn(Grid);
+		players[currentPlayer]->StartTurn(CurrentGrid);
 	}
 }
 

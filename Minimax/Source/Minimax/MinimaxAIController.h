@@ -23,19 +23,13 @@ private:
 	ABasePlayer* currentPlayer;
 
 private:
-	void StartTurn(TArray<UButton*> Grid);
+	int32 MiniMax(TArray<FString> Grid, int32 depth, bool isMaximizer);
 
-	int32 MiniMax(TArray<FString>& Grid, int32 depth, bool isMaximizer);
+	bool IsWinner(TArray<FString> Grid, FString player);
 
-	bool IsWinner(TArray<FString>& Grid, FString player);
-
-	UTextBlock* GetText(UButton* Button);
-
-	int32 Evaluate(TArray<FString>& Grid);
+	int32 Evaluate(TArray<FString> Grid);
 	
-	void BestMove(TArray<UButton*>& Grid);
-
-	TArray<FString> CreateStringArray(TArray<UButton*>& Grid);
+	void BestMove(TArray<FString>Grid);
 
 	virtual void OnPossess(APawn* InPawn) override;
 

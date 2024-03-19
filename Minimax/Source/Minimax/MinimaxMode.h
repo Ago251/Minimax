@@ -18,6 +18,7 @@ class MINIMAX_API AMinimaxMode : public AGameModeBase
 private:
 	int currentPlayer = 0;
 	ABasePlayer* players[2];
+	TArray<UButton*> CurrentGrid;
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,5 +31,5 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MyCategory")
 	void StartGame(TArray<UButton*> Grid);
 
-	void PlayerTurnEnd(TArray<UButton*> Grid);
+	void PlayerTurnEnd(int32 index);
 };

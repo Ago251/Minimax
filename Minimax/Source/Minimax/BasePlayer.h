@@ -7,6 +7,7 @@
 #include "BasePlayer.generated.h"
 
 class AMinimaxMode;
+class UTextBlock;
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartTurnEvent, TArray<UButton*>, Grid);
 
 UCLASS()
@@ -27,7 +28,7 @@ public:
 	FString Icon;
 
 
-	TArray<UButton*>* CurrentGrid;
+	TArray<FString> CurrentGrid;
 	/*UPROPERTY(BlueprintAssignable, Category = "My Events")
 	FStartTurnEvent OnStartTurn;*/
 
@@ -46,5 +47,9 @@ public:
 	virtual void StartTurn(TArray<UButton*> Grid);
 
 	UFUNCTION(BlueprintCallable, Category = "MyCategory")
-	virtual void EndTurn(TArray<UButton*> Grid);
+	virtual void EndTurn(int32 index);
+
+	TArray<FString> CreateStringArray(TArray<UButton*>& Grid);
+
+    UTextBlock* GetText(UButton* Button);
 };
