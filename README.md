@@ -1,4 +1,4 @@
-# 🎮 Tic-Tac-Toe with Minimax
+# Tic-Tac-Toe with Minimax
 
 This project implements a **Tic-Tac-Toe game** using **Unreal Engine** with a fully functional AI opponent based on the **Minimax algorithm** enhanced by **Alpha-Beta pruning**.
 The game features a playable **User Interface (UI)** that allows a human player to face off against a perfect AI opponent, demonstrating core concepts in adversarial search and decision-making in games.
