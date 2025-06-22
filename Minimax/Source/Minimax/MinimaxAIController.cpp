@@ -43,17 +43,7 @@ void AMinimaxAIController::BestMove(TArray<FString>  Grid) {
 int32 AMinimaxAIController::MiniMax(TArray<FString> Grid, int32 depth, int32 a, int32 b, bool isMaximizer) {
 	int32 score = Evaluate(Grid, depth);
 
-	bool moves = false;
-	for (int i = 0; i < 9; ++i)
-	{
-		if (Grid[i].IsEmpty())
-		{
-			moves = true;
-			break;
-		}
-	}
-
-	if (score != 0 || !moves || depth == 9)
+	if (score != 0 || IsFullGrid(Grid) || depth == 9)
 		return score;
 
 	int32 bestScore = isMaximizer ? -std::numeric_limits<int32>::max() : std::numeric_limits<int32>::max();
@@ -88,6 +78,18 @@ int32 AMinimaxAIController::Evaluate(TArray<FString> Grid, int32 depth) {
 	else
 		return 0;
 }
+
+bool AMinimaxAIController::IsFullGrid(TArray<FString> Grid)
+{
+	for (int i = 0; i < 9; ++i)
+	{
+		if (Grid[i].IsEmpty())
+			return false;
+	}
+
+	return true;
+}
+
 
 bool AMinimaxAIController::IsWinner(TArray<FString> Grid, FString player) {
 	//Horizontal

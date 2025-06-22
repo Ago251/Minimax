@@ -31,6 +31,8 @@ private:
 	
 	void BestMove(TArray<FString>Grid);
 
+	bool IsFullGrid(TArray<FString>Grid);
+
 	virtual void OnPossess(APawn* InPawn) override;
 
 public:
