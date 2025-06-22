@@ -27,7 +27,7 @@ private:
 
 	bool IsWinner(TArray<FString> Grid, FString player);
 
-	int32 Evaluate(TArray<FString> Grid);
+	int32 Evaluate(TArray<FString> Grid, int32 depth);
 	
 	void BestMove(TArray<FString>Grid);
 
